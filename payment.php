@@ -96,9 +96,13 @@ try {
                 $stmt = $conn->prepare("INSERT INTO transactions (property_id, buyer_id, amount, status, created_at) VALUES (?, ?, ?, 'completed', NOW())");
                 $stmt->execute([$property_id, $_SESSION['user_id'], $property['price']]);
                 
-                // Update property status
-                $stmt = $conn->prepare("UPDATE properties SET status = 'sold' WHERE id = ?");
-                $stmt->execute([$property_id]);
+                // Update property status and set buyer_id
+                $stmt = $conn->prepare("UPDATE properties SET status = 'sold', buyer_id = ? WHERE id = ?");
+                $stmt->execute([$_SESSION['user_id'], $property_id]);
+                
+                // Create purchase record
+                $stmt = $conn->prepare("INSERT INTO purchases (property_id, buyer_id, amount, purchase_date) VALUES (?, ?, ?, NOW())");
+                $stmt->execute([$property_id, $_SESSION['user_id'], $property['price']]);
                 
                 $conn->commit();
                 

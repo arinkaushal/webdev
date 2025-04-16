@@ -24,10 +24,9 @@ try {
     $stmt = $pdo->prepare("
         SELECT * FROM properties 
         WHERE user_id = ? 
-        AND (buyer_id IS NULL OR buyer_id != ?)
         ORDER BY created_at DESC
     ");
-    $stmt->execute([$_SESSION['user_id'], $_SESSION['user_id']]);
+    $stmt->execute([$_SESSION['user_id']]);
     $listed_properties = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch(PDOException $e) {
     die("Error: " . $e->getMessage());

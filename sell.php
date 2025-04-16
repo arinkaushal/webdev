@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("INSERT INTO properties (user_id, title, short_description, price, area, location, map_link, 
             property_type, owner_name, contact_info, road_access, utilities, nearby_landmarks, 
-            title_deed, encumbrance, tax_receipt, property_image, verification_status) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')");
+            title_deed, encumbrance, tax_receipt, property_image, verification_status, status, listing_type) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', 'available', 'sale')");
         
         $stmt->execute([$user_id, $title, $short_description, $price, $area, $location, $map_link, 
             $property_type, $owner_name, $contact_info, $road_access, $utilities, $nearby_landmarks, 
